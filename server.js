@@ -41,9 +41,14 @@ app.use(addUserToViews);
 
 // PUBLIC ROUTES
 app.get('/', async (req, res) => {
-  res.render('index.ejs');
+  if(req.session.user){
+   res.redirect(`users/${req.session.user._id}/foods`)
+  }else{
+    res.render('index.ejs');
+  }
 });
 
+//Auth
 app.get('/auth/sign-up', authCtrl.signup);
 app.post('/auth/sign-up', authCtrl.register);
 app.get('/auth/sign-in', authCtrl.signin);
@@ -59,8 +64,10 @@ app.get('/protected', async (req, res) => {
   res.send(`You are logged in as ${req.session.user.username}`);
 });
 
+// Applications
 app.get('/users/:id/foods', foodsController.index);
 app.get('/users/:id/foods/new', foodsController.newFood);
+app.post('/users/:id/foods', foodsController.create);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

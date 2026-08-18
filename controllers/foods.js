@@ -9,7 +9,7 @@ const index = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
-    res.render('foods/index.ejs', { foods: user.foods });
+    res.render('foods/index.ejs', { foods: user.pantry });
   } catch (err) {
     res.redirect('/');
   }
@@ -23,7 +23,22 @@ const newFood = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    user.pantry.push(req.body);
+    await user.save();
+
+    res.redirect('/');
+  } catch (err) {
+    console.log(err);
+    res.redirect(`foods/new`);
+  }
+};
+
 module.exports = {
     index,
     newFood,
+    create,
 }
