@@ -17,8 +17,10 @@ const addUserToViews = require('./middleware/addUserToViews');
 // CONTROLLERS
 const authCtrl = require('./controllers/authCtrl');
 
+const foodsController = require('./controllers/foods');
+
 // Set the port from environment variable or default to 3000
-const port = process.env.PORT ? process.env.PORT : '3000';
+const port = process.env.PORT ? process.env.PORT : '5000';
 
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
@@ -56,6 +58,9 @@ app.get('/auth/sign-out', authCtrl.signout);
 app.get('/protected', async (req, res) => {
   res.send(`You are logged in as ${req.session.user.username}`);
 });
+
+app.get('/users/:id/foods', foodsController.index);
+app.get('/users/:id/foods/new', foodsController.newFood);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

@@ -3,14 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>My Pantry</title>
   </head>
-
   <body>
-<%- include('./partials/_navbar.ejs') %>
-  
-  <h1>Welcome to CookBook</h1>
+    <h1>Welcome to my Pantry</h1>
 
-</body>
+    <a href="/users/<%= user._id %>/foods/new">Add New Item</a>
 
+  </body>
 </html>
