@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Pantry Network</title>
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1>Explore Our Community</h1>
+  <p>Discover other users and see what's brewing in their pantries!</p>
+
+    <ul>
+    <% allUsers.forEach((communityUser) => { %>
+      <li>
+        <a href="/users/<%= communityUser._id %>">
+          <strong><%= communityUser.username %></strong>
+        </a>
+      </li>
+    <% }) %>
+  </ul>
+
+
+  <br />
+      <a href="/users/<%= user._id %>/foods">Back to Pantry</a>
+
+</body>
+</html>

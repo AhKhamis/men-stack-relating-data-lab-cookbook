@@ -96,6 +96,32 @@ const update = async (req, res) => {
   }
 };
 
+const users = async (req, res) => {
+  try {
+    const allUsers = await User.find({});
+
+    res.render('users/index.ejs', { 
+      allUsers 
+    });
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+};
+
+const showUsers = async (req, res) => {
+  try {
+    const communityUser = await User.findById(req.params.id);
+    
+  res.render('users/show.ejs', { 
+      communityUser 
+    });
+  } catch (err) {
+    console.log(err);
+    res.redirect('/users');
+  }
+};
+
 module.exports = {
     index,
     newFood,
@@ -104,4 +130,6 @@ module.exports = {
     deleteFood,
     edit,
     update,
+    users,
+    showUsers
 }

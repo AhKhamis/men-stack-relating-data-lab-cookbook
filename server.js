@@ -72,6 +72,8 @@ app.get('/users/:id/foods/:foodId', foodsController.show);
 app.delete('/users/:id/foods/:foodId', foodsController.deleteFood);
 app.get('/users/:id/foods/:foodId/edit', foodsController.edit);
 app.put('/users/:id/foods/:foodId', foodsController.update);
+app.get('/users', foodsController.users);
+app.get('/users/:id', foodsController.showUsers);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
