@@ -1,14 +1,10 @@
-// const express = require('express');
-// const router = express.Router();
-
 const User = require('../models/user.js');
-
-// router logic will go here - will be built later on in the lab
+const Recipe = require('../models/recipe.js');
 
 const index = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    
+
     res.render('foods/index.ejs', { foods: user.pantry });
   } catch (err) {
     res.redirect('/');
@@ -33,19 +29,16 @@ const create = async (req, res) => {
     res.redirect('/');
   } catch (err) {
     console.log(err);
-    res.redirect(`foods/new`);
+    res.redirect('foods/new');
   }
 };
 
 const show = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    // console.log(user)
     const food = user.pantry.id(req.params.foodId);
-    // console.log(food)
 
     res.render('foods/show.ejs', { food });
-
   } catch (err) {
     console.log(err);
     res.redirect('/');
@@ -56,7 +49,6 @@ const deleteFood = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     user.pantry.pull(req.params.foodId);
-    
 
     await user.save();
 
@@ -73,7 +65,6 @@ const edit = async (req, res) => {
     const food = user.pantry.id(req.params.foodId);
 
     res.render('foods/edit.ejs', { food });
-    
   } catch (err) {
     console.log(err);
     res.redirect('/');
@@ -100,8 +91,8 @@ const users = async (req, res) => {
   try {
     const allUsers = await User.find({});
 
-    res.render('users/index.ejs', { 
-      allUsers 
+    res.render('users/index.ejs', {
+      allUsers,
     });
   } catch (err) {
     console.log(err);
@@ -112,9 +103,14 @@ const users = async (req, res) => {
 const showUsers = async (req, res) => {
   try {
     const communityUser = await User.findById(req.params.id);
-    
-  res.render('users/show.ejs', { 
-      communityUser 
+
+    const recipes = await Recipe.find({
+      owner: communityUser._id,
+    });
+
+    res.render('users/show.ejs', {
+      communityUser,
+      recipes,
     });
   } catch (err) {
     console.log(err);
@@ -123,13 +119,13 @@ const showUsers = async (req, res) => {
 };
 
 module.exports = {
-    index,
-    newFood,
-    create,
-    show,
-    deleteFood,
-    edit,
-    update,
-    users,
-    showUsers
-}
+  index,
+  newFood,
+  create,
+  show,
+  deleteFood,
+  edit,
+  update,
+  users,
+  showUsers,
+};

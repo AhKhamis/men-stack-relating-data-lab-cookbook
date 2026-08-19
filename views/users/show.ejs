@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= communityUser.username %>'s Pantry</title>
-</head>
-<body>
-  <%- include('../partials/_navbar.ejs') %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= communityUser.username %>'s Recipes</title>
+  </head>
+  <body>
 
-  <h1><%= communityUser.username %>'s Pantry</h1>
-  <p>Look currently this User have stored:</p>
+    <%- include('../partials/_navbar.ejs') %>
 
-  <ul>
-    <% if (communityUser.pantry && communityUser.pantry.length > 0) { %>
-      <% communityUser.pantry.forEach((food) => { %>
-        <li>
-          <%= food.name %>
-        </li>
-      <% }) %>
+    <h1><%= communityUser.username %>'s Recipes</h1>
+
+    <% if (recipes.length > 0) { %>
+
+      <ul>
+        <% recipes.forEach((recipe) => { %>
+          <li>
+            <a href="/recipes/<%= recipe._id %>?fromUser=<%= communityUser._id %>">
+              <strong><%= recipe.name %></strong>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+
     <% } else { %>
-      <li>This pantry is currently empty.</li>
-    <% } %>
-  </ul>
 
-  <br />
-  <a href="/users">Back to Community</a>
-</body>
+      <p>This user has not created any recipes yet.</p>
+
+    <% } %>
+
+    <br />
+
+    <a href="/users">Back to Community</a>
+
+  </body>
 </html>

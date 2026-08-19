@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Food Item</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= food.name %> - My Pantry</title>
+  </head>
+
+  <body>
+
     <%- include('../partials/_navbar.ejs') %>
 
-  <h1>Pantry</h1>
+    <h1>Food Item</h1>
 
-  <h2>Item: <%= food.name %></h2>
+    <h2><%= food.name %></h2>
 
-  <p>
-    <a href="/users/<%= user._id %>/foods/<%= food._id %>/edit">Edit Item</a>
-  </p>
-  
+    <p>
+      <a href="/users/<%= user._id %>/foods/<%= food._id %>/edit">
+        Edit Item
+      </a>
+    </p>
 
-  <form
-            action="/users/<%= user._id %>/foods/<%= food._id %>?_method=DELETE"
-            method="POST"
-          >
-            <button type="submit">Delete App</button>
-          </form>
+    <form
+      action="/users/<%= user._id %>/foods/<%= food._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Delete Item</button>
+    </form>
 
-  <a href="/users/<%= user._id %>/foods">Back to Pantry</a>
-</body>
+    <br />
+
+    <a href="/users/<%= user._id %>/foods">
+      Back to Pantry
+    </a>
+
+  </body>
 </html>

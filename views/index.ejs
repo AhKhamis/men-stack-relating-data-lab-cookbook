@@ -3,16 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>CookBook</title>
   </head>
 
   <body>
+
     <%- include('./partials/_navbar.ejs') %>
-  
-  <h1>Welcome to CookBook</h1>
 
-  
+    <h1>Welcome to CookBook</h1>
 
-</body>
+    <% if (user) { %>
 
+      <p>Manage your pantry, recipes, and ingredients.</p>
+
+      <h2>Quick Access</h2>
+
+      <ul>
+        <li>
+          <a href="/users/<%= user._id %>/foods">
+            View My Pantry
+          </a>
+        </li>
+
+        <li>
+          <a href="/recipes">
+            My Recipes
+          </a>
+        </li>
+
+        <li>
+          <a href="/users">
+            Explore Our Community
+          </a>
+        </li>
+      </ul>
+
+    <% } else { %>
+
+      <p>Welcome! Sign in or create an account to get started.</p>
+
+      <a href="/auth/sign-in">Sign In</a>
+      <br />
+      <a href="/auth/sign-up">Sign Up</a>
+
+    <% } %>
+
+  </body>
 </html>

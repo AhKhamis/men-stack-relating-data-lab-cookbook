@@ -19,6 +19,9 @@ const authCtrl = require('./controllers/authCtrl');
 
 const foodsController = require('./controllers/foods');
 
+const recipesController = require('./controllers/recipes.js');
+const ingredientsController = require('./controllers/ingredients.js');
+
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '5000';
 
@@ -41,11 +44,7 @@ app.use(addUserToViews);
 
 // PUBLIC ROUTES
 app.get('/', async (req, res) => {
-  if(req.session.user){
-   res.redirect(`users/${req.session.user._id}/foods`)
-  }else{
-    res.render('index.ejs');
-  }
+  res.render('index.ejs');
 });
 
 //Auth
@@ -56,6 +55,9 @@ app.post('/auth/sign-in', authCtrl.login);
 
 // Customer middleware
 app.use(isSignedIn);
+
+app.use('/recipes', recipesController);
+app.use('/ingredients', ingredientsController);
 
 // PRIVATE ROUTES
 app.get('/auth/sign-out', authCtrl.signout);
