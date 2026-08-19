@@ -68,6 +68,10 @@ app.get('/protected', async (req, res) => {
 app.get('/users/:id/foods', foodsController.index);
 app.get('/users/:id/foods/new', foodsController.newFood);
 app.post('/users/:id/foods', foodsController.create);
+app.get('/users/:id/foods/:foodId', foodsController.show);
+app.delete('/users/:id/foods/:foodId', foodsController.deleteFood);
+app.get('/users/:id/foods/:foodId/edit', foodsController.edit);
+app.put('/users/:id/foods/:foodId', foodsController.update);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
